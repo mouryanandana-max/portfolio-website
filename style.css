@@ -11,17 +11,13 @@ html {
 }
 
 body {
-    background: var(--bg-grad, linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #122129, #0f2027));
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background: #0a0f1b; /* Rich deep darker blue */
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(61, 178, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(110, 63, 255, 0.05) 0%, transparent 40%);
     color: var(--text-color, white);
     transition: color 0.4s ease;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    overflow-x: hidden;
 }
 
 /* =============================================
@@ -65,24 +61,14 @@ body {
     transform: translateX(0) translateY(0) scale(1);
 }
 
-/* Interactive Particle Background */
-.particle-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* Place behind everything */
-    pointer-events: none; /* Let clicks pass through to the page */
-}
 
 /* Light Mode Overrides */
 body.light-mode {
-    --bg-grad: linear-gradient(-45deg, #fdfbfb, #ebedee, #e0eafc, #cfdef3);
+    --bg-color: #fdfbfb;
     --text-color: #2c3e50;
     --card-bg: rgba(255, 255, 255, 0.7);
     --card-border: rgba(61, 178, 255, 0.2);
-    --hover-glow: rgba(61, 178, 255, 0.2);
+    --hover-glow: transparent;
 }
 
 /* Light mode navbar adjustments - transparency handled by main navbar classes */
@@ -126,60 +112,6 @@ body.light-mode .resume {
     box-shadow: 0 4px 15px rgba(255, 0, 128, 0.15);
 }
 
-/* Professional Magnetic Highlight Cursor */
-.cursor-core {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: #3db2ff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.cursor-follower {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: 1.5px solid rgba(61, 178, 255, 0.3);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transform: translate(-50%, -50%);
-}
-
-/* Attractive Hover State: Glass Highlight */
-body.cursor-hover .cursor-core {
-    transform: scale(0.6);
-    background: #ffffff;
-}
-
-body.cursor-hover .cursor-follower {
-    width: 90px;
-    height: 90px;
-    background: rgba(61, 178, 255, 0.08);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(61, 178, 255, 0.6);
-    box-shadow: 0 0 30px rgba(61, 178, 255, 0.2), inset 0 0 15px rgba(61, 178, 255, 0.1);
-}
-
-/* Light Mode Specific Highlight */
-body.light-mode .cursor-core { background: #081423; }
-body.light-mode .cursor-follower { border-color: rgba(8, 20, 35, 0.2); }
-
-body.light-mode.cursor-hover .cursor-follower {
-    background: rgba(8, 20, 35, 0.04);
-    border-color: rgba(8, 20, 35, 0.4);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
-}
-
-/* Hide cursor on small screens */
-@media (max-width: 992px) {
-    .cursor-core, .cursor-follower { display: none; }
-}
 /* Professional Sticky Glass Navbar */
 .navbar {
     display: flex;
@@ -194,6 +126,12 @@ body.light-mode.cursor-hover .cursor-follower {
     width: 100%;
     z-index: 2000;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInNav 1s ease-out;
+}
+
+@keyframes fadeInNav {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Navbar Scrolled State - High Transparency Glass */
@@ -233,7 +171,6 @@ body.light-mode .navbar.scrolled {
 
 .hamburger:hover {
     color: #3db2ff;
-    transform: scale(1.1);
 }
 
 .menu {
@@ -339,41 +276,41 @@ body.light-mode .navbar.scrolled {
 }
 
 .theme-btn:hover {
-    transform: rotate(20deg) scale(1.1);
+    color: #3db2ff;
 }
 
 /* hero section */
 
 .hero {
-
     text-align: center;
-    padding: 60px 20px;
-
+    padding: 120px 20px 60px 20px;
 }
 
 .profile {
-
-    width: 180px;
-    height: 180px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-
-    border: 6px solid #3db2ff;
-
-    margin-bottom: 20px;
-
+    border: 4px solid #3db2ff;
+    margin-bottom: 25px;
+    box-shadow: 0 0 40px rgba(61, 178, 255, 0.3);
+    animation: float 6s ease-in-out infinite;
+    object-fit: cover;
 }
 
-h3 {
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text-color, white);
-    margin-bottom: 5px;
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
 .hero-name {
-    font-size: 55px; /* Big name */
-    font-weight: 700;
+    font-size: 65px;
+    font-weight: 800;
     margin-bottom: 15px;
+    background: linear-gradient(to right, #ffffff, #3db2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
 }
 
 span {
@@ -441,8 +378,6 @@ span {
 .github:hover {
     background: #3db2ff;
     color: #081423;
-    box-shadow: 0 0 30px rgba(61, 178, 255, 0.6);
-    transform: translateY(-5px) scale(1.1); /* Dramatically bigger */
 }
 
 .github:active {
@@ -463,9 +398,7 @@ span {
 }
 
 .resume:hover {
-    transform: translateY(-5px) scale(1.1); /* Dramatically bigger */
-    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.6);
-    filter: brightness(1.2);
+    opacity: 0.9;
 }
 
 .resume:active {
@@ -479,19 +412,19 @@ span {
 
 /* View Projects Button */
 .view-projects-btn {
-    background: linear-gradient(135deg, #6e3fff, #3db2ff);
+    background: linear-gradient(135deg, #7c4dff, #3db2ff);
     color: white;
     border: none;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: pulse-glow 2.5s ease-in-out infinite;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(124, 77, 255, 0.3);
 }
 
 .view-projects-btn:hover {
-    transform: translateY(-5px) scale(1.1); /* Dramatically bigger */
-    box-shadow: 0 15px 35px rgba(110, 63, 255, 0.6);
-    animation: none;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(124, 77, 255, 0.5);
+    filter: brightness(1.1);
 }
 
 .view-projects-btn:active {
@@ -608,18 +541,20 @@ body.light-mode .projects-hint {
 }
 
 .stat-card {
-    background: var(--card-bg, rgba(255, 255, 255, 0.05));
-    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 30px;
     text-align: center;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .stat-card:hover {
     transform: translateY(-10px);
     border-color: #3db2ff;
+    background: rgba(61, 178, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .stat-card i {
@@ -675,7 +610,6 @@ body.light-mode .projects-hint {
 .skill-badge:hover {
     background: #3db2ff;
     color: #081423;
-    transform: scale(1.05);
 }
 
 /* --- Projects Modern --- */
@@ -686,11 +620,17 @@ body.light-mode .projects-hint {
 }
 
 .project-item {
-    background: var(--card-bg, rgba(255, 255, 255, 0.05));
-    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-item:hover {
+    border-color: rgba(61, 178, 255, 0.4);
+    background: rgba(61, 178, 255, 0.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .project-summary {
@@ -884,9 +824,9 @@ body.light-mode .projects-hint {
 
 /* Footer Styles */
 .footer {
-    background: rgba(8, 20, 35, 0.9);
+    background: rgba(10, 15, 27, 0.95);
     backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(61, 178, 255, 0.2);
+    border-top: 1px solid rgba(61, 178, 255, 0.15);
     padding: 80px 0 40px;
     margin-top: 100px;
     position: relative;
